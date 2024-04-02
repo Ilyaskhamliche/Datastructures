@@ -43,14 +43,14 @@ int main() {
     hashTable1.insert(789, "Cherry");
     hashTable1.print();
 
-    hashTable2.insert(123, "Apple");
-    hashTable2.insert(456, "Banana");
-    hashTable2.insert(789, "Cherry");
+    hashTable2.insert(123, "Pear");
+    hashTable2.insert(456, "Pineapple");
+    hashTable2.insert(789, "Watermelon");
     hashTable2.print();
 
-    hashTable3.insert(123, "Apple");
-    hashTable3.insert(456, "Banana");
-    hashTable3.insert(789, "Cherry");
+    hashTable3.insert(123, "Guava");
+    hashTable3.insert(456, "Grapes");
+    hashTable3.insert(789, "Cantalope");
     hashTable3.print();
 
     return 0;
