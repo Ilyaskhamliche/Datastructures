@@ -1,57 +1,43 @@
 #include <iostream>
 #include <string>
-#include "hashT.h" // Include the hashT class header file
-
 using namespace std;
 
-// Hash function 1: Simple modular hashing
-int hashFunc1(string key, int tableSize) {
-    int sum = 0;
-    for (char c : key) {
-        sum += static_cast<int>(c);
-    }
-    return sum % tableSize;
+// Hash function 1: Division method
+int hashFunc1(int key, int size) {
+    return key % size;
 }
 
-// Hash function 2: Horner's method
-int hashFunc2(string key, int tableSize) {
-    int sum = 0;
-    for (char c : key) {
-        sum = (sum * 31 + static_cast<int>(c)) % tableSize;
-    }
-    return sum;
+// Hash function 2: Multiplication method
+int hashFunc2(int key, int size) {
+    double A = 0.6180339887; // Constant value
+    int value = static_cast<int>(size * (key * A - static_cast<int>(key * A)));
+    return value;
 }
 
-// Hash function 3: Polynomial hashing
-int hashFunc3(string key, int tableSize) {
-    int sum = 0;
-    int p = 31; // Prime number
-    for (char c : key) {
-        sum = (sum * p + static_cast<int>(c)) % tableSize;
-    }
-    return sum;
+// Hash function 3: Universal hashing
+int hashFunc3(int key, int size, int a, int b) {
+    return ((a * key + b) % size);
 }
 
 int main() {
-    hashT<int, string> hashTable1(10, hashFunc1); // Using hash function 1
-    hashT<int, string> hashTable2(10, hashFunc2); // Using hash function 2
-    hashT<int, string> hashTable3(10, hashFunc3); // Using hash function 3
+    // Test hash function 1
+    int size1 = 10;
+    int key1 = 123;
+    int index1 = hashFunc1(key1, size1);
+    cout << "Hash function 1 (Division method): Key = " << key1 << ", Index = " << index1 << endl;
 
-    // Test operations for each hash table
-    hashTable1.insert(123, "Apple");
-    hashTable1.insert(456, "Banana");
-    hashTable1.insert(789, "Cherry");
-    hashTable1.print();
+    // Test hash function 2
+    int size2 = 20;
+    int key2 = 456;
+    int index2 = hashFunc2(key2, size2);
+    cout << "Hash function 2 (Multiplication method): Key = " << key2 << ", Index = " << index2 << endl;
 
-    hashTable2.insert(123, "Pear");
-    hashTable2.insert(456, "Pineapple");
-    hashTable2.insert(789, "Watermelon");
-    hashTable2.print();
-
-    hashTable3.insert(123, "Guava");
-    hashTable3.insert(456, "Grapes");
-    hashTable3.insert(789, "Cantalope");
-    hashTable3.print();
+    // Test hash function 3
+    int size3 = 15;
+    int key3 = 789;
+    int a = 7, b = 11;
+    int index3 = hashFunc3(key3, size3, a, b);
+    cout << "Hash function 3 (Universal hashing): Key = " << key3 << ", Index = " << index3 << endl;
 
     return 0;
 }
